@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="card fancy">
+  <h2 class="creep2">Upload your costume</h2>
+  <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" novalidate>
+    <div class="grid two">
+      <label class="muted">Name (required)<input type="text" name="name" maxlength="40" required></label>
+      <label class="muted">Email (required)<input type="email" name="email" required></label>
+    </div>
+    <label class="muted">Caption (optional)<input type="text" name="caption" maxlength="120" placeholder="Character or notes"></label>
+    <label class="drop muted">
+      <input type="file" name="photo" accept=".png,.jpg,.jpeg,image/*" required>
+      <span class="muted">Drop image here or click to choose (PNG/JPG, ≤8MB)</span>
+    </label>
+    <label class="agree muted"><input type="checkbox" required> I agree to display this photo on the site.</label>
+    <div class="actions">
+      <button type="submit" class="btn-glow">Submit costume</button>
+      <a class="btn-outline" href="{{ url_for('home') }}">Back</a>
+    </div>
+  </form>
+</article>
+{% endblock %}

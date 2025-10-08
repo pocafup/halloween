@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="grid cards">
+  <article class="card fancy center">
+    <h2 class="creep2">Join the contest</h2>
+    <p class="muted">Upload your costume photo (name & caption optional).</p>
+    <a role="button" class="btn-glow" href="{{ url_for('upload_page') }}">Go to Upload</a>
+  </article>
+  <article class="card fancy center">
+    <h2 class="creep2">Cast your vote</h2>
+    <p class="muted">Enter your email to vote (must be on the party list).</p>
+    <a role="button" class="btn-outline" href="{{ url_for('vote_page') }}">Go to Vote</a>
+  </article>
+</section>
+
+<section>
+  <h2 class="creep2">Latest submissions</h2>
+  <div class="grid gallery">
+    {% for c in contestants %}
+      <article class="card fancy">
+        <div class="polaroid">
+          <img src="/{{ c['photo_path'] }}" alt="photo of {{ c['name'] or ('#' ~ c['id']) }}">
+        </div>
+        <h4>{{ c['name'] or ('Participant #' ~ c['id']) }}</h4>
+        {% if c['caption'] %}<p class="muted">{{ c['caption'] }}</p>{% endif %}
+      </article>
+    {% else %}
+      <p class="muted">No submissions yet—be the first!</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

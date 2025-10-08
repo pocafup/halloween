@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or "🎃 Halloween Costume Contest" }}</title>
+
+  <!-- Pico.css for nice defaults -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+
+  <!-- Halloween club theme -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
+</head>
+<body>
+  <!-- Animated background scene -->
+  <div class="scene">
+    <div class="stars"></div>
+    <div class="moon"></div>
+    <div class="lasers"></div>
+    <div class="bats">
+      <span class="bat b1"></span>
+      <span class="bat b2"></span>
+      <span class="bat b3"></span>
+    </div>
+    <div class="equalizer">
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="container-fluid nav-glass">
+    <ul>
+      <li class="brand"><span class="pumpkin">🎃</span> <strong class="creep3">Halloween Party</strong></li>
+    </ul>
+    <ul>
+      <li><a class="link" href="{{ url_for('home') }}">Home</a></li>
+      <li><a class="link" href="{{ url_for('upload_page') }}">Upload</a></li>
+      <li><a class="link" href="{{ url_for('vote_page') }}">Vote</a></li>
+      <li><a class="link" href="{{ url_for('rankings') }}">Rankings</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero container">
+    <h1><span class="creep">Costume Contest</span></h1>
+    <p class="tagline">Cocktails • DJ • Dancefloor — cast your vote and crown the night’s legend.</p>
+    <div class="hero-cta">
+      <a role="button" class="btn-glow" href="{{ url_for('upload_page') }}">Enter Contest</a>
+      <a role="button" class="btn-outline" href="{{ url_for('vote_page') }}">Vote Now</a>
+    </div>
+  </header>
+
+  <main class="container content-glass">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <article class="flash">
+        {% for m in messages %}<p class="muted">{{ m }}</p>{% endfor %}
+      </article>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="container footer-glass">
+    <small>One vote per participant • Self-vote allowed • Please drink responsibly 🍸</small>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,15 @@
+
+{% extends "base.html" %}
+{% block content %}
+<article class="card">
+  <h2>Admin: Import participants CSV</h2>
+  <p class="muted">Columns required: <code>email, name</code>. Existing rows are updated by email.</p>
+  <details><summary>CSV header template</summary>
+    <button onclick="copyText('email,name\n')">Copy "email,name"</button>
+  </details>
+  <form action="{{ url_for('admin_import', key=key) }}" method="post" enctype="multipart/form-data">
+    <label>CSV file<input type="file" name="csv" accept=".csv" required></label>
+    <button type="submit">Import</button>
+  </form>
+</article>
+{% endblock %}

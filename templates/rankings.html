@@ -1,0 +1,19 @@
+
+{% extends "base.html" %}
+{% block content %}
+<section>
+  <h2 class="creep2">Current Rankings (Top 10)</h2>
+  <div class="grid">
+    {% for c in top %}
+      <article class="card">
+        <img src="/{{ c['photo_path'] }}" alt="photo of {{ c['name'] or ('#' ~ c['id']) }}">
+        <h3>{% if loop.index==1 %}🥇 1st{% elif loop.index==2 %}🥈 2nd{% elif loop.index==3 %}🥉 3rd{% else %}#{{ loop.index }}{% endif %} — {{ c['name'] or ('#' ~ c['id']) }}</h3>
+        {% if c['caption'] %}<p class="muted">{{ c['caption'] }}</p>{% endif %}
+        <p><strong>{{ c['votes'] }}</strong> vote{{ '' if c['votes']==1 else 's' }}</p>
+      </article>
+    {% else %}
+      <p class="muted">No data yet.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
