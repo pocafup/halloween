@@ -1,0 +1,7 @@
+services:
+  halloween:
+    build: .
+    container_name: halloween
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
