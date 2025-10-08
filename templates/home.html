@@ -15,16 +15,17 @@
 
 <section>
   <h2 class="creep2">Latest submissions</h2>
-  <div class="grid gallery">
+  <div class="grid gallery ranking-grid">
     {% for c in contestants %}
-      <article class="card fancy">
-        <div class="polaroid">
-          <img src="/{{ c['photo_path'] }}" alt="photo of {{ c['name'] or ('#' ~ c['id']) }}">
-        </div>
-        <h4>{{ c['name'] or ('Participant #' ~ c['id']) }}</h4>
+      <article class="card">
+        <img src="/{{ c['photo_path'] }}" alt="photo of {{ c['name'] or ('#' ~ c['id']) }}">
+        <h3>
+           {{ c['name'] or ('#' ~ c['id']) }}
+        </h3>
         {% if c['caption'] %}<p class="muted">{{ c['caption'] }}</p>{% endif %}
       </article>
-    {% else %}
+ 
+   {% else %}
       <p class="muted">No submissions yet—be the first!</p>
     {% endfor %}
   </div>

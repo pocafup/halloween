@@ -6,9 +6,16 @@
   --text:#f6f6f6; --muted:#b9b9c2;
 }
 
+html,body{min-height:100vh}
 *{box-sizing:border-box}
-html,body{height:100%}
 body{
+  color:var(--text);
+  background: radial-gradient(1200px 600px at 70% -10%, #4a008a22, transparent),
+             radial-gradient(900px 500px at 20% -10%, #ff6a0022, transparent),
+             linear-gradient(180deg, var(--bg1), var(--bg2));
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+footer{
   color:var(--text);
   background: radial-gradient(1200px 600px at 70% -10%, #4a008a22, transparent),
              radial-gradient(900px 500px at 20% -10%, #ff6a0022, transparent),
@@ -115,8 +122,130 @@ label.drop:hover{ border-color:#fff; color:#fff }
 .actions{ display:flex; gap:.6rem; margin-top:.6rem }
 
 .flash{ padding:.75rem .9rem; margin:.6rem 0 }
+p{ color: var(--muted)}
+a{ color: var(--muted)}
+h4{ color: var(--muted)}
 
+h3{ color: var(--muted)}
+input{ color:var(--muted)}
+label{ color:var(--muted)}
 .creep2{ font-family: Creepster, Inter, sans-serif; font-size: clamp(2.2rem, 2vw, 3.2rem); color:#ffd54a; text-shadow: 0 0 24px #ffc40055}
 .creep3{ font-family: Creepster, Inter, sans-serif; font-size: clamp(1.5rem, 1vw, 2.5rem); color:#ffd54a; text-shadow: 0 0 24px #ffc40055}
 .muted{ color:var(--muted) }
 .center{text-align:center}
+
+
+.preview {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.preview img {
+  max-width: 560px;          /* limit the preview width */
+  max-height: 480px;         /* prevent tall images from expanding the card */
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  border: 2px solid rgba(255,255,255,0.25);
+  box-shadow: 0 0 16px rgba(255,106,0,0.3);
+  margin-top: 0.5rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.preview img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 25px rgba(255,140,0,0.7);
+}
+
+@media (max-width: 600px) {
+  .preview img {
+    max-width: 400px;
+    max-height: 360px;
+  }
+}
+
+.flash-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.flash-box {
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 500;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  border: none;
+}
+
+/* Solid background colors for each category */
+.flash-box.error {
+  background: #fc6868;          /* red for errors */
+}
+
+.flash-box.info {
+  background: #27f527;          /* green for success/info */
+}
+
+.flash-box.warning {
+  background: #e69100;          /* optional orange warning */
+}
+
+.flash-box.notice {
+  background: #007bff;          /* optional blue notice */
+}
+
+/* Fixed 3-column ranking grid */
+.ranking-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* always 3 columns */
+  gap: 1.5rem;                           /* spacing between cards */
+  margin: 1.5rem 2.5rem;                 /* outer margins (left & right) */
+  justify-items: stretch;
+  align-items: start;
+}
+
+/* Card styling inside ranking grid */
+.ranking-grid .card {
+  background: rgba(255,255,255,0.06);
+  border-radius: 14px;
+  text-align: center;
+  padding: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ranking-grid .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(255,106,0,0.3);
+}
+
+
+.ranking-grid img {
+  width: 100%;
+  height: 240px;
+  object-fit: contain;   /* show the whole image */
+  background-color: rgba(255, 255, 255, 0.05); /* subtle backdrop */
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive tweak: fewer columns on smaller screens */
+@media (max-width: 1000px) {
+  .ranking-grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .ranking-grid {
+    grid-template-columns: 1fr;
+    margin: 1rem;
+  }
+}
+.border-margin{
+  margin-left:10vw;
+  margin-right:10vw;
+}

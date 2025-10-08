@@ -95,16 +95,16 @@ def upload():
     email = (request.form.get("email")).strip()
 
     if not file or file.filename == "":
-        flash("Please choose a photo.")
+        flash("Please choose a photo.", "error") 
         return redirect(url_for("home"))
     if not allowed_file(file.filename):
-        flash("Unsupported file type.")
+        flash("Unsupported file type.", "error")
         return redirect(url_for("home"))
     if name is None:
-        flash("Please enter your name.")
+        flash("Please enter your name.", "error")
         return redirect(url_for("home"))
     if email is None:
-        flash("Please enter your email.")
+        flash("Please enter your email.", "error")
         return redirect(url_for("home"))
 
     ext = file.filename.rsplit(".", 1)[1].lower()
@@ -118,21 +118,21 @@ def upload():
         is_voter = con.execute("SELECT * FROM voter WHERE email=?", (email,))
         has_uploaded = con.execute("SELECT * FROM contestant WHERE email=?", (email,)).fetchone()
         if (is_voter.fetchone() is None):
-            flash("Email not found in participant list. Ask the host to add you.")
+            flash("Email not found in participant list. Ask the host to add you.", "error")
             return redirect(url_for("home"))
         if (has_uploaded is not None):
-            flash("You have already submitted a photo.")
+            flash("You have already submitted a photo.", "error")
             return redirect(url_for("home"))
         con.execute(
             "INSERT INTO contestant (name, email,caption, photo_path, created_at) VALUES (?, ? , ?, ?, ?)",
             (name, email, caption, save_path, datetime.now().strftime("%Y%m%d%H%M%S%f")),
         )
         con.commit()
-        flash("Upload successful! Share the vote page with your friends so they can vote with their email.")
+        flash("Upload successful! Share the vote page with your friends so they can vote with their email.", "info")
     except Exception as e:
         con.rollback()
         print(e)
-        flash("Failed to insert into database.")
+        flash("Failed to insert into database.", "error")
     finally:
         con.close()
 
@@ -143,14 +143,14 @@ def begin_vote():
     email = (request.form.get("email") or "").strip().lower()
     last4 = (request.form.get("last4") or "").strip()
     if not email:
-        flash("Enter your email.")
+        flash("Please enter your email.", "error")
         return redirect(url_for("home"))
 
     con = get_db()
     voter = con.execute("SELECT * FROM voter WHERE lower(email)=?", (email,)).fetchone()
     if not voter:
         con.close()
-        flash("Email not found in participant list. Ask the host to add you.")
+        flash("Email not found in participant list. Ask the host to add you.", "error")
         return redirect(url_for("home"))
 
     already = con.execute("SELECT voted_contestant_id FROM vote WHERE voter_email = ?", (voter["email"],)).fetchone()
@@ -186,9 +186,9 @@ def cast_vote(cid):
             (email, cid, datetime.now().strftime("%Y%m%d%H%M%S%f"))
         )
         con.commit()
-        flash("Vote cast!")
+        flash("Vote cast!","info")
     except sqlite3.IntegrityError:
-        flash("You have already voted.")
+        flash("You have already voted.", "error")
     finally:
         con.close()
     return redirect(url_for("home"))
@@ -217,7 +217,7 @@ def admin_import():
         return render_template("admin_import.html", key=key)
     file = request.files.get("csv")
     if not file or not file.filename.endswith(".csv"):
-        flash("Please upload a CSV file.")
+        flash("Please upload a CSV file.", "error")
         return redirect(url_for("admin_import", key=key))
 
     added = 0
@@ -236,7 +236,7 @@ def admin_import():
         added += 1
     con.commit()
     con.close()
-    flash(f"Imported/updated {added} voters.")
+    flash(f"Imported/updated {added} voters.", "info")
     return redirect(url_for("admin_import", key=key))
 
 @app.route("/static/uploads/<path:filename>")

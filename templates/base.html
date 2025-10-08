@@ -52,20 +52,17 @@
     </div>
   </header>
 
-  <main class="container content-glass">
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
-      <article class="flash">
-        {% for m in messages %}<p class="muted">{{ m }}</p>{% endfor %}
-      </article>
+        {% for category, message in messages %}
+          <div class="flash-box {{ category }}" style="margin-bottom:20px; color:#000000">{{ message }}</div>
+        {% endfor %}
       {% endif %}
     {% endwith %}
 
     {% block content %}{% endblock %}
-  </main>
-
   <footer class="container footer-glass">
-    <small>One vote per participant • Self-vote allowed • Please drink responsibly 🍸</small>
+    <small style="margin-left:20px"> One vote per participant • Self-vote allowed • Please drink responsibly 🍸</small>
   </footer>
 </body>
 </html>

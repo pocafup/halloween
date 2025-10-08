@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 <section>
-  <h2 class="creep2">Cast your vote</h2>
-  <p class="muted">Hi {{ name or email }} — you have one vote.</p>
+  <h2 class="creep2" style="margin-left:20px">Cast your vote</h2>
+  <p style="margin-left:20px">Hi {{ name or email }} — you have one vote.</p>
   {% if already %}<p><strong>You've already voted</strong> for #{{ already['voted_contestant_id'] }}. Thanks!</p>{% endif %}
 </section>
 <section>
@@ -13,8 +13,8 @@
           <img src="/{{ c['photo_path'] }}" alt="photo of {{ c['name'] or ('#' ~ c['id']) }}">
         </div>
         <header>
-          <h4>{{ loop.index }}{% if loop.index == 1 %}st{% elif loop.index == 2 %}nd{% elif loop.index == 3 %}rd{% else %}th{% endif %} • {{ c['name'] or ('#' ~ c['id']) }}</h4>
-          <p class="muted">{{ c['votes'] }} vote{{ '' if c['votes']==1 else 's' }}</p>
+          <h4 style="margin-top:20px">{{ loop.index }}{% if loop.index == 1 %}st{% elif loop.index == 2 %}nd{% elif loop.index == 3 %}rd{% else %}th{% endif %} • {{ c['name'] or ('#' ~ c['id']) }}</h4>
+          <p>{{ c['votes'] }} vote{{ '' if c['votes']==1 else 's' }}</p>
         </header>
         {% if not already %}
         <form action="{{ url_for('cast_vote', cid=c['id']) }}" method="post">

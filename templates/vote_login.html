@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-<article class="card fancy">
-  <h2 class="creep2">Vote</h2>
-  <p class="muted">Enter the email that appears in the participant list.</p>
-  <form action="{{ url_for('begin_vote') }}" method="post" novalidate>
-    <label class="muted">Email<input type="email" name="email" required></label>
-    <div class="actions">
-      <button type="submit" class="btn-glow">Find me & start voting</button>
-      <a class="btn-outline" href="{{ url_for('home') }}">Back</a>
-    </div>
-  </form>
-</article>
+<div style="margin-left:20vw;margin-right:20vw"> 
+  <article class="card fancy">
+    <h2 class="creep2">Vote</h2>
+    <p class="muted">Enter the email that appears in the participant list.</p>
+    <form action="{{ url_for('begin_vote') }}" method="post" novalidate>
+      <label class="muted">Email<input type="email" name="email" required></label>
+      <div class="actions">
+        <button type="submit" class="btn-glow">Find me & start voting</button>
+      </div>
+    </form>
+  </article>
+</div>
 {% endblock %}

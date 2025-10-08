@@ -1,22 +1,59 @@
 {% extends "base.html" %}
+
 {% block content %}
-<article class="card fancy">
+<div class="border-margin">
+  <article class="card fancy">
   <h2 class="creep2">Upload your costume</h2>
-  <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" novalidate>
+  <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
     <div class="grid two">
-      <label class="muted">Name (required)<input type="text" name="name" maxlength="40" required></label>
-      <label class="muted">Email (required)<input type="email" name="email" required></label>
+      <label>Name (required)<input type="text" name="name" maxlength="40" required></label>
+      <label>Email (required)<input type="email" name="email" required></label>
     </div>
-    <label class="muted">Caption (optional)<input type="text" name="caption" maxlength="120" placeholder="Character or notes"></label>
-    <label class="drop muted">
-      <input type="file" name="photo" accept=".png,.jpg,.jpeg,image/*" required>
-      <span class="muted">Drop image here or click to choose (PNG/JPG, ≤8MB)</span>
+
+    <label>Caption (optional)
+      <input type="text" name="caption" maxlength="120" placeholder="Character or notes">
     </label>
-    <label class="agree muted"><input type="checkbox" required> I agree to display this photo on the site.</label>
+
+    <label class="drop">
+      <input id="photoInput" type="file" name="photo" accept=".png,.jpg,.jpeg,image/*" required>
+      <span>Drop image here or click to choose (PNG/JPG, ≤8MB)</span>
+    </label>
+
+    <!-- 🔮 Image preview -->
+    <div id="preview" class="preview" hidden>
+      <p class="muted">Preview:</p>
+      <img id="previewImg" alt="Image preview">
+    </div>
+
+    <label class="agree">
+      <input style="margin-top:10px" type="checkbox" required> I agree to display this photo on the site.
+    </label>
+
     <div class="actions">
       <button type="submit" class="btn-glow">Submit costume</button>
-      <a class="btn-outline" href="{{ url_for('home') }}">Back</a>
     </div>
   </form>
-</article>
+  </article>
+</div>
+<!-- 🪄 Small script for preview -->
+<script>
+  const input = document.getElementById('photoInput');
+  const preview = document.getElementById('preview');
+  const img = document.getElementById('previewImg');
+
+  input.addEventListener('change', () => {
+    const file = input.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        img.src = e.target.result;
+        preview.hidden = false;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      preview.hidden = true;
+      img.src = '';
+    }
+  });
+</script>
 {% endblock %}
